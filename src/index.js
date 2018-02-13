@@ -1,8 +1,10 @@
-import TalkService from './common/talk.service';
-import Layout from './layout/index';
-import SpeakerList from './speakers/list/index';
+//Import du /index par defaut
+import Layout from './layout';
+import SpeakerList from './speakers/list';
+import SessionList from './sessions/list';
 
-var modifVue = new SpeakerList();
+var modifVueSpeak = new SpeakerList();
+var modifVueSess = new SessionList();
 
 var layout = new Layout();
 layout.render();
@@ -10,13 +12,16 @@ layout.render();
 
 var router = () => {
     if (location.hash == '#speakers-list') {
-        // TODO afficher vue liste des présentateurs
-        modifVue.render("main-view");
-
-    } else if (location.hash == '#sessions-list') {
-        // TODO afficher vue liste des sessions
-    } else {
-        // TODO afficher vue par défaut
+        modifVueSpeak.render("main-view");
+    } else if (location.hash == '#sessions-list' && location.search == '') {
+        modifVueSess.render("main-view");
+    } else if (location.search != null)
+    {
+        modifVueSess.renderId("main-view");
+    }
+    else
+    {
+        layout.render();
     }
 }
 window.addEventListener('load', () => {
